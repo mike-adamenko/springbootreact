@@ -1,6 +1,7 @@
 package com.adamenko.springbootreact.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -16,7 +17,7 @@ public class Event {
     private Instant date;
     private String title;
     private String description;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<User> attendees;
 
     public Long getId() {
@@ -57,5 +58,53 @@ public class Event {
 
     public void setAttendees(Set<User> attendees) {
         this.attendees = attendees;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public Event() {}
+
+    public Event(Instant date, String title, String description) {
+        this.date = date;
+        this.title = title;
+        this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "id=" + id +
+                ", date=" + date +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", attendees=" + getAttendees() +
+                '}';
+    }
+
+    public static class Builder {
+        private Instant date;
+        private String title;
+        private String description;
+
+        public Event build() {
+            return new Event(date, title, description);
+        }
+
+        public Builder date(Instant date) {
+            this.date = date;
+            return this;
+        }
+
+        public Builder title(String title) {
+            this.title = title;
+            return this;
+        }
+
+        public Builder description(String description) {
+            this.description = description;
+            return this;
+        }
     }
 }

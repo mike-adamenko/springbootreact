@@ -23,6 +23,12 @@ public class Group {
     @OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     private Set<Event> events;
 
+    public Group() {}
+
+    public Group(final String name){
+        this.name = name;
+    }
+
     public Long getId() {
         return id;
     }
@@ -93,5 +99,20 @@ public class Group {
 
     public void setEvents(Set<Event> events) {
         this.events = events;
+    }
+
+    @Override
+    public String toString() {
+        return "Group{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", stateOrProvince='" + stateOrProvince + '\'' +
+                ", country='" + country + '\'' +
+                ", postalCode='" + postalCode + '\'' +
+                ", user=" + user +
+                ", events=" + events +
+                '}';
     }
 }
